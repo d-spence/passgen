@@ -1,9 +1,6 @@
 // Default values
-const defLength = 8;
+const defLength = 10;
 const defFilename = 'passwords.txt';
-const defHasNumbers = false;
-const defHasSymbols = false;
-const defSave = false;
 
 // Default character sets
 const pwAlpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,9 +10,6 @@ const pwSymbols = '!@#$%^&*_-+=';
 module.exports = {
   defLength,
   defFilename,
-  defHasNumbers,
-  defHasSymbols,
-  defSave,
   pwAlpha,
   pwNumbers,
   pwSymbols,

@@ -5,12 +5,14 @@ const clipboardy = require('clipboardy');
 const log = console.log;
 const {
   defLength,
+  defCount,
   defFilename,
   pwSymbols,
 } = require('./config/config');
 const createPassword = require('./utils/createPassword');
+const savePasswords = require('./utils/savePassword');
 
-program.version('1.0.1').description('Simple password generator');
+program.version('1.1.0').description('Simple password generator');
 
 // Command options
 program
@@ -19,22 +21,34 @@ program
   .option('-m, --no-symbols', 'exclude symbols')
   .option('-u, --use-symbols <symbols>', 'use only specified symbols', pwSymbols)
   .option('-o, --use-only <characters>', 'use only specified chars', '')
+  .option('-c, --count <number>', 'number of passwords to generate', defCount)
   .option('-s, --save', 'save password to file', false)
   .option('-f, --file-name <filename>', 'name of password save file', defFilename)
   .option('-d, --debug', 'display debug info', false)
   .parse();
 
-const { debug } = program.opts();
+const { count, save, fileName, debug } = program.opts();
+
 if (debug) {
   console.table(program.opts());
 }
 
-// Get generated password
-const generatedPassword = createPassword(program.opts());
+// Generate password(s)
+let generatedPasswords = []
+for (let i = 0; i < count; i++) {
+  generatedPasswords.push(createPassword(program.opts()));
 
-// Copy to clipboard
-clipboardy.writeSync(generatedPassword);
+  //Output generated password
+  log(chalk.green('Generated Password: ') + chalk.bold(generatedPasswords[i]));
+}
 
-//Output generated password
-log(chalk.green('Generated Password: ') + chalk.bold(generatedPassword));
-log(chalk.yellow('Password copied to clipboard'));
+// Save to file
+if (save) {
+  savePasswords(generatedPasswords, fileName);
+}
+
+// Copy to clipboard (if only 1 password)
+if (count === 1) {
+  clipboardy.writeSync(generatedPasswords[0]);
+  log(chalk.yellow('Password copied to clipboard'));
+}

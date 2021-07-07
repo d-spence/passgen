@@ -2,18 +2,13 @@ const {
   pwAlpha,
   pwNumbers,
 } = require('../config/config');
-const savePassword = require('./savePassword');
 
 const createPassword = (options) => {
-  const { length, numbers, symbols, useSymbols, useOnly, save, fileName } = options;
+  const { length, numbers, symbols, useSymbols, useOnly } = options;
 
   const chars = getPasswordChars(numbers, symbols, useSymbols, useOnly);
 
   const generatedPassword = generatePassword(chars, length);
-
-  if (save) {
-    savePassword(generatedPassword, fileName);
-  }
 
   return(generatedPassword);
 }

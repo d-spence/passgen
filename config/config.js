@@ -1,5 +1,6 @@
 // Default values
 const defLength = 10;
+const defCount = 1;
 const defFilename = 'passwords.txt';
 
 // Default character sets
@@ -9,6 +10,7 @@ const pwSymbols = '!@#$%^&*_-+=';
 
 module.exports = {
   defLength,
+  defCount,
   defFilename,
   pwAlpha,
   pwNumbers,

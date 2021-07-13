@@ -12,7 +12,7 @@ const {
 const createPassword = require('./utils/createPassword');
 const savePasswords = require('./utils/savePassword');
 
-program.version('1.1.1').description('Simple password generator');
+program.version('1.1.2').description('Simple password generator');
 
 // Command options
 program
@@ -25,7 +25,7 @@ program
   .option('-d, --description <string>', 'description of password', '')
   .option('-s, --save', 'save password to file', false)
   .option('-f, --file-name <filename>', 'name of password save file', defFilename)
-  .option('-d, --debug', 'display debug info', false)
+  .option('-D, --debug', 'display debug info', false)
   .parse();
 
 const { count, description, save, fileName, debug } = program.opts();
